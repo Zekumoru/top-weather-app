@@ -4,14 +4,26 @@ import 'normalize.css';
 import './style.css';
 import API_KEYS from './.api-keys.json';
 
+(async () => {
+  const weather = await getWeather('Milan');
+  console.log(weather);
+})();
+
 async function getWeather(city) {
   const { lat, lon } = await getCityCoord(city);
   const weather = (await axios.get('https://api.open-meteo.com/v1/forecast', {
     params: {
       latitude: lat,
       longitude: lon,
-      hourly: 'temperature_2m',
+      current_weather: true,
       timezone: 'auto',
+      hourly: [
+        'temperature_2m',
+        'precipitation',
+      ],
+      daily: [
+        'weathercode',
+      ],
     },
   })).data;
   return weather;
@@ -26,5 +38,3 @@ async function getCityCoord(city) {
   });
   return data[0];
 }
-
-getWeather('Milan');

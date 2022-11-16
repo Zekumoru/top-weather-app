@@ -28,6 +28,7 @@
   "dependencies": {
     "@mdi/font": "^7.0.96",
     "axios": "^1.1.3",
+    "date-fns": "^2.29.3",
     "normalize.css": "^8.0.1"
   },
   "lint-staged": {

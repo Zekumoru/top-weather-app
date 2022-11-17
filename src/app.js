@@ -18,10 +18,9 @@ async function getWeather(city) {
       current_weather: true,
       timezone: 'auto',
       hourly: [
+        'apparent_temperature',
         'temperature_2m',
         'precipitation',
-      ],
-      daily: [
         'weathercode',
       ],
     },

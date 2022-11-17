@@ -3,6 +3,23 @@ import axios from 'axios';
 export default class SvgLoader {
   static #VALID_FILE_NAME_REGEX = /[\w\-. ]+/g;
 
+  static async loadSvgs(document, svgs) {
+    await Promise.resolve(); // force asynchronous
+    const imgs = document.querySelectorAll('img[data-svg-load]');
+    [...imgs].forEach((img) => {
+      const container = document.createElement('div');
+      container.innerHTML = svgs[img.dataset.svgLoad];
+
+      const svg = container.querySelector('svg');
+      if (img.id) svg.setAttribute('id', img.id);
+      if (img.className) svg.setAttribute('class', img.className);
+
+      img.insertAdjacentElement('beforebegin', svg);
+      container.remove();
+      img.remove();
+    });
+  }
+
   static async getSvgs(requireContext) {
     await Promise.resolve(); // force asynchronous
     return requireContext.keys().reduce(async (obj, key) => {

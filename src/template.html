@@ -8,10 +8,80 @@
     <title><%=htmlWebpackPlugin.options.title%></title>
   </head>
   <body>
-    <form novalidate>
-      <label for="city">Type city name:</label>
-      <input id="city" type="text" required>
-      <button>Go</button>
-    </form>
+    <header>
+      <div class="logo-icon"></div>
+      <h1 class="logo-name">Weather</h1>
+    </header>
+    <main>
+      <form id="search-city" novalidate>
+        <label for="city">Type city name:</label>
+        <input id="city" type="text" required>
+        <button>Go</button>
+      </form>
+      <section class="weather-info">
+        <section class="main">
+          <div class="icon"></div>
+          <div class="content">
+            <p>Currently at <span class="time">18:00</span></p>
+            <div class="temperature">
+              <p class="number">12</p>
+              <div class="degrees">
+                <button class="celsius">&deg;C</button>
+                <span>|</span>
+                <button class="fahrenheit">&deg;F</button>
+              </div>
+            </div>
+            <p>Feels like <span class="feels-like">10.7</span>&deg;</p>
+          </div>
+        </section>
+        <section class="extra">
+          <ul>
+            <li>Precipitation <span class="precipitation">2</span>%</li>
+            <li>Humidity <span class="precipitation">88</span>%</li>
+            <li>Wind <span class="precipitation">3</span>Km/h</li>
+          </ul>
+        </section>
+      </section>
+      <section class="hourly-weather">
+        <h2>Hourly <span>24 hours</span></h2>
+        <ul>
+          <li>
+            <div class="icon"></div>
+            <p class="time">18:00</p>
+            <ul class="info">
+              <li><span class="temperature-icon"></span> <span class="temperature">11.7</span>&deg;</li>
+              <li><span class="drop-icon"></span> <span class="precipitation">2</span>%</li>
+            </ul>
+          </li>
+        </ul>
+      </section>
+      <section class="daily-weather">
+        <h2>Daily <span>7 days</span></h2>
+        <ul>
+          <li>
+            <div class="icon"></div>
+            <p class="day">Thu</p>
+            <ul class="info">
+              <li><span class="temperature-icon"></span> <span class="high-temperature">13</span>&deg; <span class="low-temperature">8</span>&deg;</li>
+              <li><span class="drop-icon"></span> <span class="precipitation">80</span>%</li>
+            </ul>
+          </li>
+        </ul>
+      </section>
+    </main>
+    <footer>
+      <section class="logo">
+        <span class="logo-icon"></span>
+        <span class="logo-name">Weather</span>
+      </section>
+      <section class="about">
+        <p>Made by Zekumoru</p>
+      </section>
+      <h3>Credits</h3>
+      <section class="credits">
+        <section class="apis"></section>
+        <section class="images"></section>
+      </section>
+    </footer>
   </body>
 </html>

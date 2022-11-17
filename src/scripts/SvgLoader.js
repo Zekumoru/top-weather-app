@@ -1,15 +1,18 @@
+import axios from 'axios';
+
 export default class SvgLoader {
   static #VALID_FILE_NAME_REGEX = /[\w\-. ]+/g;
 
-  static getSvgs(requireContext) {
-    return requireContext.keys().reduce((obj, key) => {
+  static async getSvgs(requireContext) {
+    await Promise.resolve(); // force asynchronous
+    return requireContext.keys().reduce(async (obj, key) => {
       if (!key.endsWith('.svg')) return obj;
-      obj[SvgLoader.generateKey(key)] = requireContext(key);
+      obj[SvgLoader.#generateKey(key)] = await SvgLoader.#extractSvg(requireContext(key));
       return obj;
     }, {});
   }
 
-  static generateKey(key) {
+  static #generateKey(key) {
     const parts = [...key.matchAll(SvgLoader.#VALID_FILE_NAME_REGEX)];
     const generated = [];
     let isFirstLoop = true;
@@ -23,5 +26,10 @@ export default class SvgLoader {
     }
     if (generated.length === 1) return generated[0];
     return generated.join('-');
+  }
+
+  static async #extractSvg(url) {
+    const { data } = await axios.get(url);
+    return /<svg(.|\s)*<\/svg>/.exec(data)[0];
   }
 }

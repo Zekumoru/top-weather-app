@@ -4,10 +4,36 @@ import 'normalize.css';
 import './style.css';
 import API_KEYS from './.api-keys.json';
 
-(async () => {
-  const weather = await getWeather('Milan');
-  console.log(weather);
-})();
+const city = document.querySelector('#city');
+const submit = document.querySelector('button');
+
+city.addEventListener('keyup', () => {
+  if (!city.value) {
+    city.setCustomValidity('Please enter a city!');
+    return;
+  }
+
+  city.setCustomValidity('');
+});
+
+submit.addEventListener('click', async (e) => {
+  e.preventDefault();
+  if (!city.value) {
+    city.setCustomValidity('Please enter a city!');
+    city.reportValidity();
+    return;
+  }
+
+  try {
+    const weather = await getWeather(city.value);
+    console.log(weather);
+  }
+  catch (error) {
+    city.setCustomValidity(error.message);
+    city.reportValidity();
+    console.error(error);
+  }
+});
 
 async function getWeather(city) {
   const { lat, lon } = await getCityCoord(city);
@@ -35,5 +61,6 @@ async function getCityCoord(city) {
       appid: API_KEYS.openweathermap,
     },
   });
+  if (!data.length) throw new Error('City not found!');
   return data[0];
 }

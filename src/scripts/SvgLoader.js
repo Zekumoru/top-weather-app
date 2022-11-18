@@ -1,6 +1,11 @@
 import axios from 'axios';
 
 export default {
+  async loadSvg(url, attrs = {}) {
+    const svg = createSvg(await extractSvg(url));
+    Object.keys(attrs).forEach((key) => svg.setAttribute(key, attrs[key]));
+    return svg;
+  },
   async load(url) {
     await Promise.resolve(); // force asynchronous
     if (!url.endsWith('/')) url += '/';
@@ -9,25 +14,24 @@ export default {
       url += simplifyPath(img.dataset.svgLoad);
       if (!url.endsWith('.svg')) url += '.svg';
 
-      const container = document.createElement('div');
-
-      try {
-        container.innerHTML = await extractSvg(url);
-      }
-      catch (error) {
-        return;
-      }
-
-      const svg = container.querySelector('svg');
+      const svg = createSvg(await extractSvg(url));
       if (img.id) svg.setAttribute('id', img.id);
       if (img.className) svg.setAttribute('class', img.className);
 
       img.insertAdjacentElement('beforebegin', svg);
-      container.remove();
       img.remove();
     });
   },
 };
+
+function createSvg(content) {
+  const container = document.createElement('div');
+  container.innerHTML = content;
+  const svg = container.querySelector('svg');
+  container.insertAdjacentElement('beforebegin', svg);
+  container.remove();
+  return svg;
+}
 
 function simplifyPath(path) {
   if (path.startsWith('./') || path.startsWith('/')) {

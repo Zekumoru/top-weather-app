@@ -3,11 +3,11 @@ import axios from 'axios';
 export default class SvgLoader {
   static #VALID_FILE_NAME_REGEX = /[\w\-. ]+/g;
 
-  static async loadSvgs(document, svgs) {
+  static async loadSvgs(element, svgs) {
     await Promise.resolve(); // force asynchronous
-    const imgs = document.querySelectorAll('img[data-svg-load]');
+    const imgs = element.querySelectorAll('img[data-svg-load]');
     [...imgs].forEach((img) => {
-      const container = document.createElement('div');
+      const container = element.createElement('div');
       container.innerHTML = svgs[img.dataset.svgLoad];
 
       const svg = container.querySelector('svg');

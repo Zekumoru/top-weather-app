@@ -67,6 +67,12 @@ function simplifyPath(path) {
 
 async function extractSvg(url) {
   if (!url.endsWith('.svg')) url += '.svg';
-  const { data } = await axios.get(url);
-  return /<svg(.|\s)*<\/svg>/.exec(data)[0];
+
+  try {
+    const { data } = await axios.get(url);
+    return /<svg(.|\s)*<\/svg>/.exec(data)[0];
+  }
+  catch (error) {
+    throw new Error(`Could not fetch ${url}`);
+  }
 }

@@ -1,28 +1,25 @@
 import axios from 'axios';
 
 export default {
-  async loadSvg(url, attrs = {}) {
+  async load(url, attrs = {}) {
     const svg = createSvg(await extractSvg(url));
     Object.keys(attrs).forEach((key) => svg.setAttribute(key, attrs[key]));
     return svg;
   },
-  async load(url) {
-    await Promise.resolve(); // force asynchronous
-    if (!url.endsWith('/')) url += '/';
-    const imgs = document.querySelectorAll('img[data-svg-load]');
-    [...imgs].forEach(async (img) => {
-      url += simplifyPath(img.dataset.svgLoad);
-      if (!url.endsWith('.svg')) url += '.svg';
-
-      const svg = createSvg(await extractSvg(url));
-      if (img.id) svg.setAttribute('id', img.id);
-      if (img.className) svg.setAttribute('class', img.className);
-
-      img.insertAdjacentElement('beforebegin', svg);
-      img.remove();
-    });
-  },
 };
+
+const imgs = document.querySelectorAll('img[data-svg-url]');
+[...imgs].forEach(async (img) => {
+  let url = simplifyPath(img.dataset.svgUrl);
+  if (!url.endsWith('.svg')) url += '.svg';
+
+  const svg = createSvg(await extractSvg(url));
+  if (img.id) svg.setAttribute('id', img.id);
+  if (img.className) svg.setAttribute('class', img.className);
+
+  img.insertAdjacentElement('beforebegin', svg);
+  img.remove();
+});
 
 function createSvg(content) {
   const container = document.createElement('div');

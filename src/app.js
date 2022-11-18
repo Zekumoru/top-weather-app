@@ -3,13 +3,7 @@ import axios from 'axios';
 import 'normalize.css';
 import './style.css';
 import API_KEYS from './.api-keys.json';
-import logo from './images/logo.svg';
-
-(async () => {
-  const { data } = await axios.get(logo);
-  const svg = /<svg(.|\s)*<\/svg>/.exec(data)[0];
-  document.querySelector('.logo-icon').innerHTML = svg;
-})();
+import './scripts/SvgLoader';
 
 const city = document.querySelector('#city');
 const submit = document.querySelector('button');

@@ -17,8 +17,12 @@ const imgs = document.querySelectorAll('img[data-svg-url]');
 
   const svg = createSvg(await extractSvg(url));
   if (img.dataset.svgColorable === 'true') makeColorable(svg);
-  if (img.id) svg.setAttribute('id', img.id);
-  if (img.className) svg.setAttribute('class', img.className);
+
+  [...img.attributes].forEach((attr) => {
+    attr = attr.name;
+    if (attr.startsWith('data-svg')) return;
+    svg.setAttribute(attr, img.getAttribute(attr));
+  });
 
   img.insertAdjacentElement('beforebegin', svg);
   img.remove();

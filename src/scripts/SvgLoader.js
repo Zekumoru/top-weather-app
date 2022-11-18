@@ -11,15 +11,16 @@ export default {
   },
 };
 
-const imgs = document.querySelectorAll('img[data-svg-url]');
+const imgs = document.querySelectorAll('img[data-svg-load]');
 [...imgs].forEach(async (img) => {
-  const url = simplifyPath(img.dataset.svgUrl);
+  const url = simplifyPath(img.src);
 
   const svg = createSvg(await extractSvg(url));
   if (img.dataset.svgColorable === 'true') makeColorable(svg);
 
   [...img.attributes].forEach((attr) => {
     attr = attr.name;
+    if (attr === 'src') return;
     if (attr.startsWith('data-svg')) return;
     svg.setAttribute(attr, img.getAttribute(attr));
   });

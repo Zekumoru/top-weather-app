@@ -3,17 +3,20 @@ import axios from 'axios';
 export default {
   async load(url, attrs = {}) {
     const svg = createSvg(await extractSvg(url));
-    Object.keys(attrs).forEach((key) => svg.setAttribute(key, attrs[key]));
+    Object.keys(attrs).forEach((key) => {
+      if (key === 'colorable' && attrs[key]) makeColorable(svg);
+      svg.setAttribute(key, attrs[key]);
+    });
     return svg;
   },
 };
 
 const imgs = document.querySelectorAll('img[data-svg-url]');
 [...imgs].forEach(async (img) => {
-  let url = simplifyPath(img.dataset.svgUrl);
-  if (!url.endsWith('.svg')) url += '.svg';
+  const url = simplifyPath(img.dataset.svgUrl);
 
   const svg = createSvg(await extractSvg(url));
+  if (img.dataset.svgColorable === 'true') makeColorable(svg);
   if (img.id) svg.setAttribute('id', img.id);
   if (img.className) svg.setAttribute('class', img.className);
 
@@ -30,6 +33,22 @@ function createSvg(content) {
   return svg;
 }
 
+function makeColorable(svg) {
+  const toColorable = (node) => {
+    const fill = node.getAttribute('fill');
+    if (fill && fill !== 'none') node.setAttribute('fill', 'currentColor');
+
+    const stroke = node.getAttribute('stroke');
+    if (stroke && stroke !== 'none') node.setAttribute('stroke', 'currentColor');
+  };
+
+  const paths = svg.querySelectorAll('path');
+  const gs = svg.querySelectorAll('g');
+
+  paths.forEach(toColorable);
+  gs.forEach(toColorable);
+}
+
 function simplifyPath(path) {
   if (path.startsWith('./') || path.startsWith('/')) {
     const slash = path.indexOf('/');
@@ -43,6 +62,7 @@ function simplifyPath(path) {
 }
 
 async function extractSvg(url) {
+  if (!url.endsWith('.svg')) url += '.svg';
   const { data } = await axios.get(url);
   return /<svg(.|\s)*<\/svg>/.exec(data)[0];
 }

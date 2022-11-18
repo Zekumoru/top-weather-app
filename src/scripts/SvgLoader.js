@@ -40,11 +40,10 @@ function createSvg(content) {
 
 function makeColorable(svg) {
   const toColorable = (node) => {
-    const fill = node.getAttribute('fill');
-    if (fill && fill !== 'none') node.setAttribute('fill', 'currentColor');
-
-    const stroke = node.getAttribute('stroke');
-    if (stroke && stroke !== 'none') node.setAttribute('stroke', 'currentColor');
+    ['fill', 'stroke'].forEach((attrName) => {
+      const attr = node.getAttribute(attrName);
+      if (attr && attr !== 'none') node.setAttribute(attrName, 'currentColor');
+    });
   };
 
   const paths = svg.querySelectorAll('path');

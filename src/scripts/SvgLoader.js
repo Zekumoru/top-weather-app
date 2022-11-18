@@ -1,14 +1,22 @@
 import axios from 'axios';
 
-export default class SvgLoader {
-  static #VALID_FILE_NAME_REGEX = /[\w\-. ]+/g;
-
-  static async loadSvgs(element, svgs) {
+export default {
+  async load(url) {
     await Promise.resolve(); // force asynchronous
-    const imgs = element.querySelectorAll('img[data-svg-load]');
-    [...imgs].forEach((img) => {
-      const container = element.createElement('div');
-      container.innerHTML = svgs[img.dataset.svgLoad];
+    if (!url.endsWith('/')) url += '/';
+    const imgs = document.querySelectorAll('img[data-svg-load]');
+    [...imgs].forEach(async (img) => {
+      url += simplifyPath(img.dataset.svgLoad);
+      if (!url.endsWith('.svg')) url += '.svg';
+
+      const container = document.createElement('div');
+
+      try {
+        container.innerHTML = await extractSvg(url);
+      }
+      catch (error) {
+        return;
+      }
 
       const svg = container.querySelector('svg');
       if (img.id) svg.setAttribute('id', img.id);
@@ -18,35 +26,22 @@ export default class SvgLoader {
       container.remove();
       img.remove();
     });
-  }
+  },
+};
 
-  static async getSvgs(requireContext) {
-    await Promise.resolve(); // force asynchronous
-    return requireContext.keys().reduce(async (obj, key) => {
-      if (!key.endsWith('.svg')) return obj;
-      obj[SvgLoader.#generateKey(key)] = await SvgLoader.#extractSvg(requireContext(key));
-      return obj;
-    }, {});
+function simplifyPath(path) {
+  if (path.startsWith('./') || path.startsWith('/')) {
+    const slash = path.indexOf('/');
+    path = path.substring(slash + 1);
   }
+  if (path.endsWith('.svg')) {
+    const ext = path.lastIndexOf('.svg');
+    path = path.substring(0, ext);
+  }
+  return path;
+}
 
-  static #generateKey(key) {
-    const parts = [...key.matchAll(SvgLoader.#VALID_FILE_NAME_REGEX)];
-    const generated = [];
-    let isFirstLoop = true;
-    for (let i = parts.length - 1; i > 0; i--) {
-      let part = parts[i][0];
-      if (isFirstLoop) {
-        part = part.substring(0, part.lastIndexOf('.svg'));
-        isFirstLoop = false;
-      }
-      generated.push(part);
-    }
-    if (generated.length === 1) return generated[0];
-    return generated.join('-');
-  }
-
-  static async #extractSvg(url) {
-    const { data } = await axios.get(url);
-    return /<svg(.|\s)*<\/svg>/.exec(data)[0];
-  }
+async function extractSvg(url) {
+  const { data } = await axios.get(url);
+  return /<svg(.|\s)*<\/svg>/.exec(data)[0];
 }

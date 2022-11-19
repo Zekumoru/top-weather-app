@@ -2,8 +2,8 @@ import '@mdi/font/css/materialdesignicons.css';
 import axios from 'axios';
 import 'normalize.css';
 import './style.css';
+import '@zekumoru-dev/svg-loader/SvgLoader';
 import API_KEYS from './.api-keys.json';
-import './scripts/SvgLoader';
 
 const city = document.querySelector('#city');
 const submit = document.querySelector('button');

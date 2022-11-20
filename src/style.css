@@ -13,6 +13,13 @@ input[type="text"] {
   min-width: 0;
 }
 
+button {
+  border: none;
+  background-color: transparent;
+  color: inherit;
+  cursor: pointer;
+}
+
 html {
   background-color: #18191a;
   color: #e6e6e6;
@@ -29,6 +36,7 @@ main {
   gap: 16px;
   justify-content: center;
   align-items: center;
+  margin: 16px 0;
 }
 
 /* SEARCH BAR */
@@ -65,18 +73,44 @@ main {
 
 /* WEATHER INFO */
 
+#weather-info {
+  margin-top: 24px;
+}
+
 #weather-info .main {
   display: flex;
   gap: 16px;
+  font-size: 1.2rem;
 }
 
-#weather-info .main .content {
+#weather-info .content {
   flex: 1;
   display: flex;
   flex-direction: column;
+  gap: 4px;
 }
 
 #weather-info .weather-icon {
   width: 100px;
   height: 100px;
+}
+
+#weather-info .temperature {
+  display: flex;
+  font-size: 4rem;
+  gap: 4px;
+}
+
+#weather-info .degrees {
+  font-size: 0.6em;
+  color: #888;
+}
+
+#weather-info .degrees .selected {
+  color: #e6e6e6;
+}
+
+#weather-info .pipe-border {
+  border-right: 1px solid;
+  margin-right: 6px;
 }

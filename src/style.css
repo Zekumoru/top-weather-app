@@ -5,6 +5,10 @@
   font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
+input[type="text"] {
+  min-width: 0;
+}
+
 html {
   background-color: #18191a;
   color: #e6e6e6;
@@ -17,4 +21,37 @@ html {
   gap: 16px;
   justify-content: center;
   align-items: center;
+}
+
+/* SEARCH BAR */
+
+#search-bar {
+  margin: 16px auto;
+  max-width: 80vw;
+  background-color: #333;
+  display: flex;
+  align-items: center;
+  padding: 14px 16px;
+  border-radius: 2px;
+  font-size: 1.4rem;
+  gap: 8px;
+}
+
+#search-bar:focus-within {
+  outline: 1px solid white;
+}
+
+#search-bar .search {
+  width: 0.9em;
+  height: 0.9em;
+  position: relative;
+  cursor: pointer;
+}
+
+#search-bar input {
+  flex: 1;
+  background-color: transparent;
+  color: inherit;
+  border: none;
+  outline: none;
 }

@@ -9,3 +9,12 @@ html {
   background-color: #18191a;
   color: #e6e6e6;
 }
+
+/* HEADER */
+
+.main-header {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  align-items: center;
+}

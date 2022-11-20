@@ -1,4 +1,3 @@
-import '@mdi/font/css/materialdesignicons.css';
 import axios from 'axios';
 import 'normalize.css';
 import './style.css';

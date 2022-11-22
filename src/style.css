@@ -114,3 +114,22 @@ main {
   border-right: 1px solid;
   margin-right: 6px;
 }
+
+#weather-info .extra > ul {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 16px;
+  margin: 16px 0;
+}
+
+#weather-info .extra li {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  grid-template-rows: repeat(2, auto);
+  column-gap: 8px;
+}
+
+#weather-info .icon {
+  width: 40px;
+  grid-row: 1 / -1;
+}

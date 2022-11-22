@@ -29,6 +29,10 @@ main {
   padding: 0 16px;
 }
 
+main > section {
+  margin: 16px 0;
+}
+
 /* HEADER */
 
 .main-header {
@@ -132,4 +136,10 @@ main {
 #weather-info .icon {
   width: 40px;
   grid-row: 1 / -1;
+}
+
+/* MAIN */
+
+h2 {
+  margin-bottom: 8px;
 }

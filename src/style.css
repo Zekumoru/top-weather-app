@@ -33,6 +33,18 @@ main > section {
   margin: 16px 0;
 }
 
+.hide-scrollbar {
+  overflow-y: scroll;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* Internet Explorer 10+ */
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+  /* WebKit */
+  width: 0;
+  height: 0;
+}
+
 /* HEADER */
 
 .main-header {
@@ -145,7 +157,13 @@ h2 {
   margin-bottom: 8px;
 }
 
-#hourly-weather .cards > li {
+.cards {
+  display: flex;
+  gap: 16px;
+  overflow-x: auto;
+}
+
+.cards > li {
   width: fit-content;
   display: flex;
   flex-direction: column;
@@ -155,29 +173,29 @@ h2 {
   border-radius: 4px;
 }
 
-#hourly-weather .time {
+.cards .time {
   margin-top: 4px;
   margin-bottom: 12px;
 }
 
-#hourly-weather .weather-icon {
+.cards .weather-icon {
   width: 80px;
   height: 80px;
 }
 
-#hourly-weather .info {
+.cards .info {
   display: flex;
   flex-direction: column;
   gap: 12px;
 }
 
-#hourly-weather .info > li {
+.cards .info > li {
   display: flex;
   align-items: center;
   font-size: 1.4rem;
 }
 
-#hourly-weather .info .icon {
+.cards .info .icon {
   width: 2rem;
   height: 2rem;
   margin-right: auto;

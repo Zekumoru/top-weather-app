@@ -5,9 +5,22 @@ import '@zekumoru-dev/svg-loader/SvgLoader';
 import API_KEYS from './.api-keys.json';
 
 const city = document.querySelector('#city');
-const submit = document.querySelector('button');
 
-city.addEventListener('keyup', () => {
+window.addEventListener('DOMSvgLoaded', () => {
+  const search = document.querySelector('.search');
+  search.addEventListener('click', () => submit());
+});
+
+city.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter') e.preventDefault();
+});
+
+city.addEventListener('keyup', (e) => {
+  if (e.key === 'Enter') {
+    submit();
+    return;
+  }
+
   if (!city.value) {
     city.setCustomValidity('Please enter a city!');
     return;
@@ -16,8 +29,7 @@ city.addEventListener('keyup', () => {
   city.setCustomValidity('');
 });
 
-submit.addEventListener('click', async (e) => {
-  e.preventDefault();
+async function submit() {
   if (!city.value) {
     city.setCustomValidity('Please enter a city!');
     city.reportValidity();
@@ -33,7 +45,7 @@ submit.addEventListener('click', async (e) => {
     city.reportValidity();
     console.error(error);
   }
-});
+}
 
 async function getWeather(city) {
   const { lat, lon } = await getCityCoord(city);

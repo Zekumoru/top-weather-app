@@ -55,6 +55,11 @@ main > section {
   margin: 16px 0;
 }
 
+.main-header .logo-icon {
+  width: 60px;
+  height: 60px;
+}
+
 /* SEARCH BAR */
 
 #search-bar {

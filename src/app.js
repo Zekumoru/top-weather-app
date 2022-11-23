@@ -45,6 +45,7 @@ async function submit() {
     const currentWeather = weather.current_weather;
     const currentIndex = weather.hourly.time.indexOf(currentWeather.time);
     CurrentWeatherDisplay.set({
+      icon: await Weather.getIcon(currentWeather.weathercode),
       currentHour: format(new Date(currentWeather.time), 'p'),
       temperature: currentWeather.temperature,
       feelsLike: weather.hourly.apparent_temperature[currentIndex],

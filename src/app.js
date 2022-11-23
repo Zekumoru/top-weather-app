@@ -10,6 +10,9 @@ const city = document.querySelector('#city');
 window.addEventListener('DOMSvgLoaded', () => {
   const search = document.querySelector('.search');
   search.addEventListener('click', () => submit());
+
+  city.value = 'London';
+  search.click();
 });
 
 city.addEventListener('keydown', (e) => {

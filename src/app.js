@@ -44,9 +44,11 @@ async function submit() {
     const weather = await Weather.get(city.value);
     const currentWeather = weather.current_weather;
     const currentIndex = weather.hourly.time.indexOf(currentWeather.time);
+    const currentTime = new Date(currentWeather.time);
+    const daytime = currentTime.getHours() >= 6 && currentTime.getHours() <= 18;
     CurrentWeatherDisplay.set({
-      icon: await Weather.getIcon(currentWeather.weathercode),
-      currentHour: format(new Date(currentWeather.time), 'p'),
+      icon: await Weather.getIcon(currentWeather.weathercode, daytime),
+      currentHour: format(currentTime, 'p'),
       temperature: currentWeather.temperature,
       feelsLike: weather.hourly.apparent_temperature[currentIndex],
       precipitation: weather.hourly.precipitation[currentIndex],

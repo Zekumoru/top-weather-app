@@ -18,6 +18,7 @@ Weather.get = async function (city) {
         'apparent_temperature',
         'temperature_2m',
         'precipitation',
+        'relativehumidity_2m',
         'weathercode',
       ],
     },

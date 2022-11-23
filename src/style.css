@@ -94,63 +94,63 @@ main > section {
 
 /* WEATHER INFO */
 
-#weather-info {
+#current-weather-display {
   margin-top: 24px;
 }
 
-#weather-info .main {
+#current-weather-display .main {
   display: flex;
   gap: 16px;
   font-size: 1.2rem;
 }
 
-#weather-info .content {
+#current-weather-display .content {
   flex: 1;
   display: flex;
   flex-direction: column;
   gap: 4px;
 }
 
-#weather-info .weather-icon {
+#current-weather-display .weather-icon {
   width: 100px;
   height: 100px;
 }
 
-#weather-info .temperature {
+#current-weather-display .temperature {
   display: flex;
   font-size: 4rem;
   gap: 4px;
 }
 
-#weather-info .degrees {
+#current-weather-display .degrees {
   font-size: 0.6em;
   color: #888;
 }
 
-#weather-info .degrees .selected {
+#current-weather-display .degrees .selected {
   color: #e6e6e6;
 }
 
-#weather-info .pipe-border {
+#current-weather-display .pipe-border {
   border-right: 1px solid;
   margin-right: 6px;
 }
 
-#weather-info .extra > ul {
+#current-weather-display .extra > ul {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
   gap: 16px;
   margin: 16px 0;
 }
 
-#weather-info .extra li {
+#current-weather-display .extra li {
   display: grid;
   grid-template-columns: auto 1fr;
   grid-template-rows: repeat(2, auto);
   column-gap: 8px;
 }
 
-#weather-info .icon {
+#current-weather-display .icon {
   width: 40px;
   height: 40px;
   grid-row: 1 / -1;

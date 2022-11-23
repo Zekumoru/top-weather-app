@@ -1,7 +1,7 @@
-const WeatherInfo = {};
-export default WeatherInfo;
+const display = {};
+export default display;
 
-const info = document.querySelector('#weather-info');
+const info = document.querySelector('#current-weather-display');
 const elements = {
   currentHour: info.querySelector('.current-hour'),
   temperature: info.querySelector('.temperature > .number'),
@@ -14,7 +14,7 @@ const elements = {
 window.addEventListener('DOMSvgLoaded', async () => {
   let icon = info.querySelector('.weather-icon');
 
-  Object.defineProperty(WeatherInfo, 'icon', {
+  Object.defineProperty(display, 'icon', {
     get() {
       return icon;
     },
@@ -30,7 +30,7 @@ window.addEventListener('DOMSvgLoaded', async () => {
 
 Object.keys(elements).forEach((key) => {
   const element = elements[key];
-  Object.defineProperty(WeatherInfo, key, {
+  Object.defineProperty(display, key, {
     get() {
       return element.textContent;
     },
@@ -39,3 +39,10 @@ Object.keys(elements).forEach((key) => {
     },
   });
 });
+
+display.set = function (params = {}) {
+  Object.entries(params).forEach(([param, value]) => {
+    if (!display[param]) throw new SyntaxError(`Invalid display element '${param}'`);
+    display[param] = value;
+  });
+};

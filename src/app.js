@@ -2,6 +2,7 @@ import 'normalize.css';
 import './style.css';
 import '@zekumoru-dev/svg-loader/SvgLoader';
 import Weather from './scripts/Weather';
+import WeatherInfo from './scripts/WeatherInfo';
 
 const city = document.querySelector('#city');
 

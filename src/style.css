@@ -162,9 +162,11 @@ h2 {
 
 .cards > li {
   width: 140px;
+  height: 240px;
   flex-shrink: 0;
   display: flex;
   flex-direction: column;
+  justify-content: center;
   align-items: center;
   background-color: #333;
   padding: 16px 24px;
@@ -180,6 +182,7 @@ h2 {
 .cards .weather-icon {
   width: 80px;
   height: 80px;
+  margin-bottom: 8px;
 }
 
 .cards .info {

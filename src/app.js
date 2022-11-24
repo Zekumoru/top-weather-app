@@ -9,8 +9,8 @@ import CardsDisplay from './scripts/CardsDisplay';
 import Card from './scripts/Card';
 
 const city = document.querySelector('#city');
-const hourlyDisplay = new CardsDisplay(document.querySelector('#hourly-weather > .cards'));
-const dailyDisplay = new CardsDisplay(document.querySelector('#daily-weather > .cards'));
+const hourlyDisplay = new CardsDisplay(document.querySelector('#hourly-weather'), document.querySelector('#hourly-weather > .cards'));
+const dailyDisplay = new CardsDisplay(document.querySelector('#daily-weather'), document.querySelector('#daily-weather > .cards'));
 
 window.addEventListener('DOMSvgLoaded', async () => {
   const search = document.querySelector('.search');
@@ -49,6 +49,7 @@ async function submit() {
     const weather = await Weather.get(city.value);
     setCurrentWeatherDisplay(weather);
     setHourlyWeatherDisplay(weather);
+    setDailyWeatherDisplay(weather);
   }
   catch (error) {
     city.setCustomValidity(error.message);
@@ -99,8 +100,41 @@ async function setHourlyWeatherDisplay(weather) {
 
   hourlyDisplay.render(await Promise.all(cards));
   new ScrollBooster({
-    viewport: document.querySelector('#hourly-weather'),
-    content: document.querySelector('#hourly-weather > .cards'),
+    viewport: hourlyDisplay.viewport,
+    content: hourlyDisplay.content,
+    scrollMode: 'transform',
+    direction: 'horizontal',
+    emulateScroll: true,
+  });
+}
+
+async function setDailyWeatherDisplay(weather) {
+  const { time, weathercode } = weather.daily;
+  const highTemperature = weather.daily.temperature_2m_max;
+  const lowTemperature = weather.daily.temperature_2m_min;
+  const precipitation = weather.daily.precipitation_sum;
+
+  const cards = [];
+  time.forEach((time, index) => {
+    time = new Date(time);
+    cards.push((async () => {
+      const icon = await Weather.getIcon(weathercode[index]);
+      icon.setAttribute('class', 'weather-icon');
+
+      const card = new Card(icon, format(time, 'eee'), null);
+      await Promise.all([
+        card.addHighLowTemperature(highTemperature[index], lowTemperature[index]),
+        card.addPrecipitation(precipitation[index]),
+      ]);
+
+      return card;
+    })());
+  });
+
+  dailyDisplay.render(await Promise.all(cards));
+  new ScrollBooster({
+    viewport: dailyDisplay.viewport,
+    content: dailyDisplay.content,
     scrollMode: 'transform',
     direction: 'horizontal',
     emulateScroll: true,

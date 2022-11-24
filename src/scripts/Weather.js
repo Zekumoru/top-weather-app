@@ -21,6 +21,12 @@ Weather.get = async function (city) {
         'relativehumidity_2m',
         'weathercode',
       ],
+      daily: [
+        'temperature_2m_max',
+        'temperature_2m_min',
+        'precipitation_sum',
+        'weathercode',
+      ],
     },
   })).data;
   return weather;

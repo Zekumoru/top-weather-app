@@ -1,8 +1,18 @@
 export default class {
-  #display;
+  #viewport;
+  #content;
 
-  constructor(display) {
-    this.#display = display;
+  constructor(viewport, content) {
+    this.#viewport = viewport;
+    this.#content = content;
+  }
+
+  get viewport() {
+    return this.#viewport;
+  }
+
+  get content() {
+    return this.#content;
   }
 
   append(card) {
@@ -13,7 +23,7 @@ export default class {
     li.querySelector('.time').textContent = card.time;
     li.appendChild(card.infoList);
 
-    this.#display.appendChild(li);
+    this.#content.appendChild(li);
   }
 
   render(cards) {
@@ -22,6 +32,6 @@ export default class {
   }
 
   clear() {
-    this.#display.innerHTML = '';
+    this.#content.innerHTML = '';
   }
 }

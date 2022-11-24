@@ -12,6 +12,9 @@ const city = document.querySelector('#city');
 const hourlyDisplay = new CardsDisplay(document.querySelector('#hourly-weather'), document.querySelector('#hourly-weather > .cards'));
 const dailyDisplay = new CardsDisplay(document.querySelector('#daily-weather'), document.querySelector('#daily-weather > .cards'));
 
+hourlyDisplay.showLoading();
+dailyDisplay.showLoading();
+
 window.addEventListener('DOMSvgLoaded', async () => {
   const search = document.querySelector('.search');
   search.addEventListener('click', () => submit());
@@ -46,6 +49,8 @@ async function submit() {
   }
 
   CurrentWeatherDisplay.showLoading();
+  hourlyDisplay.showLoading();
+  dailyDisplay.showLoading();
 
   try {
     const weather = await Weather.get(city.value);

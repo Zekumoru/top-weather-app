@@ -34,4 +34,20 @@ export default class {
   clear() {
     this.#content.innerHTML = '';
   }
+
+  showLoading() {
+    const li = document.createElement('li');
+    li.innerHTML = `
+      <svg class="weather-icon skeleton" />
+      <p class="day"><span class="skeleton"></span></p>
+      <ul class="info">
+        <li><span class="skeleton"></span></li>
+        <li><span class="skeleton"></span></li>
+      </ul>`;
+
+    this.#content.innerHTML = '';
+    for (let i = 0; i < 10; i++) {
+      this.#content.appendChild(li.cloneNode(true));
+    }
+  }
 }

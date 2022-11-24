@@ -45,6 +45,8 @@ async function submit() {
     return;
   }
 
+  CurrentWeatherDisplay.showLoading();
+
   try {
     const weather = await Weather.get(city.value);
     setCurrentWeatherDisplay(weather);

@@ -20,8 +20,6 @@ window.addEventListener('DOMSvgLoaded', () => {
     },
     set(svg) {
       icon.insertAdjacentElement('beforebegin', svg);
-      const className = icon.getAttribute('class');
-      if (className) svg.setAttribute('class', className);
       icon.remove();
       icon = svg;
     },
@@ -49,7 +47,7 @@ display.set = function (params = {}) {
 
 display.showLoading = function () {
   const icon = document.createElement('svg');
-  icon.className = 'weather-icon skeleton';
+  icon.setAttribute('class', 'weather-icon skeleton');
   display.icon = icon;
   display.currentHour = '--:--';
   display.temperature = '--';

@@ -2,6 +2,7 @@ import 'normalize.css';
 import './style.css';
 import '@zekumoru-dev/svg-loader/SvgLoader';
 import { format } from 'date-fns';
+import ScrollBooster from 'scrollbooster';
 import Weather from './scripts/Weather';
 import CurrentWeatherDisplay from './scripts/CurrentWeatherDisplay';
 import CardsDisplay from './scripts/CardsDisplay';
@@ -97,4 +98,11 @@ async function setHourlyWeatherDisplay(weather) {
   }
 
   hourlyDisplay.render(await Promise.all(cards));
+  new ScrollBooster({
+    viewport: document.querySelector('#hourly-weather'),
+    content: document.querySelector('#hourly-weather > .cards'),
+    scrollMode: 'transform',
+    direction: 'horizontal',
+    emulateScroll: true,
+  });
 }

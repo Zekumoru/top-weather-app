@@ -33,18 +33,6 @@ main > section {
   margin: 16px 0;
 }
 
-.hide-scrollbar {
-  overflow-y: scroll;
-  scrollbar-width: none; /* Firefox */
-  -ms-overflow-style: none; /* Internet Explorer 10+ */
-}
-
-.hide-scrollbar::-webkit-scrollbar {
-  /* WebKit */
-  width: 0;
-  height: 0;
-}
-
 /* HEADER */
 
 .main-header {
@@ -162,10 +150,14 @@ h2 {
   margin-bottom: 8px;
 }
 
+#hourly-weather,
+#daily-weather {
+  overflow: hidden;
+}
+
 .cards {
   display: flex;
   gap: 16px;
-  overflow-x: auto;
 }
 
 .cards > li {

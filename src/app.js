@@ -72,6 +72,7 @@ async function setCurrentWeatherDisplay(weather) {
     humidity: weather.hourly.relativehumidity_2m[currentIndex],
     wind: currentWeather.windspeed,
   });
+  CurrentWeatherDisplay.icon.setAttribute('class', 'weather-icon');
 }
 
 async function setHourlyWeatherDisplay(weather) {

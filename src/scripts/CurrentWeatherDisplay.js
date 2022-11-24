@@ -11,7 +11,7 @@ const elements = {
   wind: info.querySelector('.wind'),
 };
 
-window.addEventListener('DOMSvgLoaded', async () => {
+window.addEventListener('DOMSvgLoaded', () => {
   let icon = info.querySelector('.weather-icon');
 
   Object.defineProperty(display, 'icon', {
@@ -45,4 +45,16 @@ display.set = function (params = {}) {
     if (!display[param]) throw new SyntaxError(`Invalid display element '${param}'`);
     display[param] = value;
   });
+};
+
+display.showLoading = function () {
+  const icon = document.createElement('svg');
+  icon.className = 'weather-icon skeleton';
+  display.icon = icon;
+  display.currentHour = '--:--';
+  display.temperature = '--';
+  display.feelsLike = '-';
+  display.precipitation = '-';
+  display.humidity = '-';
+  display.wind = '-';
 };

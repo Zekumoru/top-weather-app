@@ -96,5 +96,5 @@ async function setHourlyWeatherDisplay(weather) {
     })());
   }
 
-  (await Promise.all(cards)).forEach((card) => hourlyDisplay.append(card));
+  hourlyDisplay.render(await Promise.all(cards));
 }

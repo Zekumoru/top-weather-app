@@ -17,6 +17,11 @@ export default class {
   }
 
   render(cards) {
+    this.clear();
     cards.forEach(this.append.bind(this));
+  }
+
+  clear() {
+    this.#display.innerHTML = '';
   }
 }

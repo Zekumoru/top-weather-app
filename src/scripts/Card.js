@@ -20,8 +20,8 @@ export default class {
 
   async addHighLowTemperature(high, low) {
     const li = await this.#createInfo('images/temperature.svg', '<span class="high-temperature"><span class="number">13</span><span class="unit">°</span></span> <span class="low-temperature"><span class="number">8</span><span class="unit">°</span></span>');
-    li.querySelector('.high-temperature .number').textContent = high;
-    li.querySelector('.low-temperature .number').textContent = low;
+    li.querySelector('.high-temperature .number').textContent = Math.floor(high);
+    li.querySelector('.low-temperature .number').textContent = Math.floor(low);
     this.infoList.insertAdjacentElement('afterbegin', li);
   }
 

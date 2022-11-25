@@ -86,9 +86,9 @@ async function setCurrentWeatherDisplay(weather) {
   const currentWeather = weather.current_weather;
   const currentIndex = weather.hourly.time.indexOf(currentWeather.time);
   const currentTime = new Date(currentWeather.time);
-  const daytime = currentTime.getHours() >= 6 && currentTime.getHours() <= 18;
+
   CurrentWeatherDisplay.set({
-    icon: await Weather.getIcon(currentWeather.weathercode, daytime),
+    icon: await Weather.getIcon(currentWeather.weathercode, isDaytime(currentTime)),
     currentHour: format(currentTime, 'p'),
     temperature: currentWeather.temperature,
     feelsLike: weather.hourly.apparent_temperature[currentIndex],
@@ -96,6 +96,7 @@ async function setCurrentWeatherDisplay(weather) {
     humidity: weather.hourly.relativehumidity_2m[currentIndex],
     wind: currentWeather.windspeed,
   });
+
   CurrentWeatherDisplay.icon.setAttribute('class', 'weather-icon');
 }
 
@@ -110,7 +111,7 @@ async function setHourlyWeatherDisplay(weather) {
 
     cards.push((async () => {
       const t = new Date(time[index]);
-      const icon = await Weather.getIcon(weathercode[index]);
+      const icon = await Weather.getIcon(weathercode[index], isDaytime(t));
       icon.setAttribute('class', 'weather-icon');
 
       const card = new Card(icon, format(t, 'p'), null);
@@ -160,4 +161,8 @@ async function setDailyWeatherDisplay(weather) {
     direction: 'horizontal',
     emulateScroll: true,
   });
+}
+
+function isDaytime(time) {
+  return time.getHours() >= 6 && time.getHours() < 18;
 }

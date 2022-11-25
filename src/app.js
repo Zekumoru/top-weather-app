@@ -16,6 +16,8 @@ hourlyDisplay.showLoading();
 dailyDisplay.showLoading();
 
 window.addEventListener('DOMSvgLoaded', async () => {
+  await Card.loadIcons();
+
   const search = document.querySelector('.search');
   search.addEventListener('click', () => submit());
 
@@ -97,10 +99,8 @@ async function setHourlyWeatherDisplay(weather) {
       icon.setAttribute('class', 'weather-icon');
 
       const card = new Card(icon, format(t, 'p'), null);
-      await Promise.all([
-        card.addTemperature(temperature[index]),
-        card.addPrecipitation(precipitation[index]),
-      ]);
+      card.addTemperature(temperature[index]);
+      card.addPrecipitation(precipitation[index]);
 
       return card;
     })());
@@ -130,10 +130,8 @@ async function setDailyWeatherDisplay(weather) {
       icon.setAttribute('class', 'weather-icon');
 
       const card = new Card(icon, format(time, 'eee'), null);
-      await Promise.all([
-        card.addHighLowTemperature(highTemperature[index], lowTemperature[index]),
-        card.addPrecipitation(precipitation[index]),
-      ]);
+      card.addHighLowTemperature(highTemperature[index], lowTemperature[index]);
+      card.addPrecipitation(precipitation[index]);
 
       return card;
     })());

@@ -11,6 +11,25 @@ const elements = {
   wind: info.querySelector('.wind'),
 };
 
+const degrees = info.querySelector('.degrees');
+const celsiusButton = degrees.querySelector('button.celsius');
+const fahrenheitButton = degrees.querySelector('button.fahrenheit');
+
+celsiusButton.addEventListener('click', () => changeDegree(celsiusButton, 'celsius'));
+fahrenheitButton.addEventListener('click', () => changeDegree(fahrenheitButton, 'fahrenheit'));
+
+function changeDegree(button, degree) {
+  const previousSelected = degrees.querySelector('.selected');
+  if (previousSelected === button) return;
+
+  previousSelected.classList.remove('selected');
+  button.classList.add('selected');
+
+  if (typeof display.onChangeDegree === 'function') {
+    display.onChangeDegree(degree);
+  }
+}
+
 window.addEventListener('DOMSvgLoaded', () => {
   let icon = info.querySelector('.weather-icon');
 

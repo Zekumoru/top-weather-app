@@ -15,6 +15,8 @@ const dailyDisplay = new CardsDisplay(document.querySelector('#daily-weather'), 
 hourlyDisplay.showLoading();
 dailyDisplay.showLoading();
 
+CurrentWeatherDisplay.onChangeDegree = submit;
+
 window.addEventListener('DOMSvgLoaded', async () => {
   await Card.loadIcons();
 
@@ -54,7 +56,10 @@ async function submit() {
   dailyDisplay.showLoading();
 
   try {
-    const weather = await Weather.get(city.value);
+    const weather = await Weather.get(city.value, {
+      temperature_unit: CurrentWeatherDisplay.temperatureUnit,
+    });
+
     setCurrentWeatherDisplay(weather);
     setHourlyWeatherDisplay(weather);
     setDailyWeatherDisplay(weather);

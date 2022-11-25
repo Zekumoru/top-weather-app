@@ -15,6 +15,13 @@ const degrees = info.querySelector('.degrees');
 const celsiusButton = degrees.querySelector('button.celsius');
 const fahrenheitButton = degrees.querySelector('button.fahrenheit');
 
+let temperatureUnit = 'celsius';
+Object.defineProperty(display, 'temperatureUnit', {
+  get() {
+    return temperatureUnit;
+  },
+});
+
 celsiusButton.addEventListener('click', () => changeDegree(celsiusButton, 'celsius'));
 fahrenheitButton.addEventListener('click', () => changeDegree(fahrenheitButton, 'fahrenheit'));
 
@@ -24,6 +31,7 @@ function changeDegree(button, degree) {
 
   previousSelected.classList.remove('selected');
   button.classList.add('selected');
+  temperatureUnit = degree;
 
   if (typeof display.onChangeDegree === 'function') {
     display.onChangeDegree(degree);

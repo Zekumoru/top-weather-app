@@ -6,30 +6,31 @@ import wmoIconConversion from './wmo-icon-conversion.json';
 const Weather = {};
 export default Weather;
 
-Weather.get = async function (city) {
+Weather.get = async function (city, params) {
   const { lat, lon } = await getCityCoord(city);
-  const weather = (await axios.get('https://api.open-meteo.com/v1/forecast', {
-    params: {
-      latitude: lat,
-      longitude: lon,
-      current_weather: true,
-      timezone: 'auto',
-      hourly: [
-        'apparent_temperature',
-        'temperature_2m',
-        'precipitation',
-        'relativehumidity_2m',
-        'weathercode',
-      ],
-      daily: [
-        'temperature_2m_max',
-        'temperature_2m_min',
-        'precipitation_sum',
-        'weathercode',
-      ],
-    },
-  })).data;
-  return weather;
+
+  params = {
+    latitude: lat,
+    longitude: lon,
+    current_weather: true,
+    timezone: 'auto',
+    hourly: [
+      'apparent_temperature',
+      'temperature_2m',
+      'precipitation',
+      'relativehumidity_2m',
+      'weathercode',
+    ],
+    daily: [
+      'temperature_2m_max',
+      'temperature_2m_min',
+      'precipitation_sum',
+      'weathercode',
+    ],
+    ...params,
+  };
+
+  return (await axios.get('https://api.open-meteo.com/v1/forecast', { params })).data;
 };
 
 Weather.getIcon = async function (wmo, daytime = true) {

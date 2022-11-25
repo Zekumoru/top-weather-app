@@ -46,6 +46,13 @@ export default class {
       </ul>`;
 
     this.#content.innerHTML = '';
+
+    const content = this.#content.cloneNode();
+    content.style = '';
+    this.#content.insertAdjacentElement('beforebegin', content);
+    this.#content.remove();
+    this.#content = content;
+
     for (let i = 0; i < 10; i++) {
       this.#content.appendChild(li.cloneNode(true));
     }

@@ -30,7 +30,7 @@ Weather.get = async function (city, params) {
     ...params,
   };
 
-  return (await axios.get('https://api.open-meteo.com/v1/forecast', { params })).data;
+  return (await axios.get('https://api.open-meteo.com/v1/forecast/', { params })).data;
 };
 
 Weather.getIcon = async function (wmo, daytime = true) {
@@ -52,12 +52,7 @@ Weather.getIcon = async function (wmo, daytime = true) {
 };
 
 async function getCityCoord(city) {
-  const { data } = await axios.get('http://api.openweathermap.org/geo/1.0/direct', {
-    params: {
-      q: city,
-      appid: API_KEYS.openweathermap,
-    },
-  });
+  const data = await (await fetch(`https://api.openweathermap.org/geo/1.0/direct?q=${city}&appid=${API_KEYS.openweathermap}`)).json();
   if (!data.length) throw new Error('City not found!');
   return data[0];
 }

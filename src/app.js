@@ -21,7 +21,6 @@ window.addEventListener('DOMSvgLoaded', async () => {
   const search = document.querySelector('.search');
   search.addEventListener('click', () => submit());
 
-  city.value = 'London';
   search.click();
 });
 

@@ -32,6 +32,7 @@ main {
 main > section {
   margin: 16px 0;
 }
+
 .skeleton {
   opacity: 0.7;
   animation: skeleton-loading 1s linear infinite alternate;
@@ -94,6 +95,12 @@ span.skeleton {
   outline: 1px solid white;
 }
 
+#search-bar input:disabled,
+#search-bar input:disabled + .search,
+#search-bar:has(:disabled) {
+  cursor: wait;
+}
+
 #search-bar .search {
   width: 0.9em;
   height: 0.9em;
@@ -107,6 +114,10 @@ span.skeleton {
   color: inherit;
   border: none;
   outline: none;
+}
+
+#search-bar input:disabled {
+  color: #a6a6a6;
 }
 
 /* WEATHER INFO */
@@ -142,6 +153,11 @@ span.skeleton {
 #current-weather-display .degrees {
   font-size: 0.6em;
   color: #888;
+}
+
+#current-weather-display .degrees :disabled {
+  color: #606060;
+  cursor: wait;
 }
 
 #current-weather-display .degrees .selected {

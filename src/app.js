@@ -11,6 +11,7 @@ import Card from './scripts/Card';
 const city = document.querySelector('#city');
 const hourlyDisplay = new CardsDisplay(document.querySelector('#hourly-weather'), document.querySelector('#hourly-weather > .cards'));
 const dailyDisplay = new CardsDisplay(document.querySelector('#daily-weather'), document.querySelector('#daily-weather > .cards'));
+let loading = false;
 
 hourlyDisplay.showLoading();
 dailyDisplay.showLoading();
@@ -45,12 +46,16 @@ city.addEventListener('keyup', (e) => {
 });
 
 async function submit() {
+  if (loading) return;
   if (!city.value) {
     city.setCustomValidity('Please enter a city!');
     city.reportValidity();
     return;
   }
 
+  city.disabled = true;
+  loading = true;
+  city.dispatchEvent(new Event('fetchWeather', { bubbles: true }));
   CurrentWeatherDisplay.showLoading();
   hourlyDisplay.showLoading();
   dailyDisplay.showLoading();
@@ -60,15 +65,21 @@ async function submit() {
       temperature_unit: CurrentWeatherDisplay.temperatureUnit,
     });
 
-    setCurrentWeatherDisplay(weather);
-    setHourlyWeatherDisplay(weather);
-    setDailyWeatherDisplay(weather);
+    await Promise.all([
+      setCurrentWeatherDisplay(weather),
+      setHourlyWeatherDisplay(weather),
+      setDailyWeatherDisplay(weather),
+    ]);
   }
   catch (error) {
     city.setCustomValidity(error.message);
     city.reportValidity();
     throw new Error(error);
   }
+
+  city.disabled = false;
+  loading = false;
+  city.dispatchEvent(new Event('finishFetchWeather', { bubbles: true }));
 }
 
 async function setCurrentWeatherDisplay(weather) {

@@ -38,6 +38,16 @@ function changeDegree(button, degree) {
   }
 }
 
+window.addEventListener('fetchWeather', () => {
+  celsiusButton.disabled = true;
+  fahrenheitButton.disabled = true;
+});
+
+window.addEventListener('finishFetchWeather', () => {
+  celsiusButton.disabled = false;
+  fahrenheitButton.disabled = false;
+});
+
 window.addEventListener('DOMSvgLoaded', () => {
   let icon = info.querySelector('.weather-icon');
 

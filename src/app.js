@@ -11,6 +11,7 @@ import Card from './scripts/Card';
 const city = document.querySelector('#city');
 const hourlyDisplay = new CardsDisplay(document.querySelector('#hourly-weather'), document.querySelector('#hourly-weather > .cards'));
 const dailyDisplay = new CardsDisplay(document.querySelector('#daily-weather'), document.querySelector('#daily-weather > .cards'));
+let weather;
 let loading = false;
 
 hourlyDisplay.showLoading();
@@ -60,22 +61,24 @@ async function submit() {
   hourlyDisplay.showLoading();
   dailyDisplay.showLoading();
 
+  const previousWeather = weather;
   try {
-    const weather = await Weather.get(city.value, {
+    weather = await Weather.get(city.value, {
       temperature_unit: CurrentWeatherDisplay.temperatureUnit,
     });
-
-    await Promise.all([
-      setCurrentWeatherDisplay(weather),
-      setHourlyWeatherDisplay(weather),
-      setDailyWeatherDisplay(weather),
-    ]);
   }
   catch (error) {
+    city.disabled = false;
     city.setCustomValidity(error.message);
     city.reportValidity();
-    throw new Error(error);
+    weather = previousWeather;
   }
+
+  await Promise.all([
+    setCurrentWeatherDisplay(weather),
+    setHourlyWeatherDisplay(weather),
+    setDailyWeatherDisplay(weather),
+  ]);
 
   city.disabled = false;
   loading = false;

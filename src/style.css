@@ -23,6 +23,7 @@ button {
 html {
   background-color: #18191a;
   color: #e6e6e6;
+  overflow-x: hidden;
 }
 
 main {
@@ -125,7 +126,12 @@ span.skeleton {
 #current-weather-display {
   margin-top: 24px;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+}
+
+@media screen and (min-width: 380px) {
+  #current-weather-display {
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  }
 }
 
 #current-weather-display .main {
@@ -292,6 +298,12 @@ h2 {
   height: 1.2em;
 }
 
+.credits {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 8px;
+}
+
 .credits a {
   color: inherit;
   text-decoration: none;
@@ -303,10 +315,6 @@ h2 {
   height: 1em;
   margin-left: 2px;
   cursor: pointer;
-}
-
-.credits h4:not(:first-child) {
-  margin-top: 8px;
 }
 
 /* DESKTOP */

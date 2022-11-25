@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Weather</title>
+  <link rel="icon" href="assets/favicon.svg"><script defer src="vendors-node_modules_zekumoru-dev_svg-loader_SvgLoader_js-node_modules_date-fns_esm_format_in-6b119a.bc549f1c4786d31c4075.js"></script><script defer src="build.96e6b961c24059cecc07.js"></script></head>
+  <body>
+    <header class="main-header">
+      <img data-svg-load src="images/logo.svg" class="logo-icon" />
+      <h1 class="logo-name">Weather</h1>
+    </header>
+    <main>
+      <form id="search-bar" novalidate>
+        <input id="city" type="text" value="London" placeholder="Enter city" required disabled>
+        <img data-svg-load="colorable,wrap" class="search" src="images/icons/search.svg" />
+      </form>
+      <section id="current-weather-display">
+        <section class="main">
+          <svg class="weather-icon skeleton"></svg>
+          <div class="content">
+            <p>Currently at <span class="current-hour">--:--</span></p>
+            <div class="temperature">
+              <p class="number">--</p>
+              <div class="degrees">
+                <button class="celsius selected">&deg;C</button>
+                <span class="pipe-border"></span>
+                <button class="fahrenheit">&deg;F</button>
+              </div>
+            </div>
+          </div>
+        </section>
+        <section class="extra">
+          <ul>
+            <li>
+              <img class="icon" data-svg-load="colorable" src="images/feels-like.svg" />
+              <p>Feels like</p>
+              <p><span class="feels-like"><span class="number">-</span>&deg;</span></p>
+            </li>
+            <li>
+              <img class="icon" data-svg-load="colorable" src="images/precipitation.svg" />
+              <p>Precipitation</p>
+              <p><span class="precipitation">-</span> mm</p>
+            </li>
+            <li>
+              <img class="icon" data-svg-load="colorable" src="images/humidity.svg" />
+              <p>Humidity</p>
+              <p><span class="humidity">-</span>%</p>
+            </li>
+            <li>
+              <img class="icon" data-svg-load="colorable" src="images/wind.svg" />
+              <p>Wind</p>
+              <p><span class="wind">-</span> km/h</p>
+            </li>
+          </ul>
+        </section>
+      </section>
+      <section id="hourly-weather">
+        <h2>Hourly <span>24 hours</span></h2>
+        <ul class="cards"></ul>
+      </section>
+      <section id="daily-weather">
+        <h2>Daily <span>7 days</span></h2>
+        <ul class="cards">
+          <li>
+            <img data-svg-load="colorable" class="weather-icon" src="images/weather-night/113.svg" />
+            <p class="day">Thu</p>
+            <ul class="info">
+              <li><img class="icon" data-svg-load="colorable" src="images/temperature.svg" /> <span class="high-temperature"><span class="number">13</span>&deg;</span> <span class="low-temperature"><span class="number">8</span>&deg;</span></li>
+              <li><img class="icon" data-svg-load="colorable" src="images/precipitation.svg" /> <span class="precipitation">0.8</span> mm</li>
+            </ul>
+          </li>
+        </ul>
+      </section>
+    </main>
+    <footer class="main-footer">
+      <section class="logo">
+        <img data-svg-load class="logo-icon" src="images/logo.svg" />
+        <span class="logo-name">Weather</span>
+      </section>
+      <section class="about">
+        <p>Made by Zekumoru</p>
+      </section>
+      <h3>Credits</h3>
+      <section class="credits">
+        <div>
+          <h4>API</h4>
+          <ul>
+            <li><a href="https://open-meteo.com/en" target="_blank" rel="noopener noreferrer">Open-Meteo<img data-svg-load="colorable, wrap=span" class="icon" src="images/open-tab.svg" /></a></li>
+            <li><a href="https://openweathermap.org/" target="_blank" rel="noopener noreferrer">OpenWeatherMap<img data-svg-load="colorable, wrap=span" class="icon" src="images/open-tab.svg" /></a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Icons and Images</h4>
+          <ul class="images">
+            <li><a href="https://www.figma.com/file/DFeq1hWBHyO85iiiiR0R0g/Weather-API-Icons-(Community)" target="_blank" rel="noopener noreferrer">Weather API Icons<img data-svg-load="colorable, wrap=span" class="icon" src="images/open-tab.svg" /></a></li>
+            <li><a href="https://www.svgrepo.com/" target="_blank" rel="noopener noreferrer">SVG Repo<img data-svg-load="colorable, wrap=span" class="icon" src="images/open-tab.svg" /></a></li>
+            <li><a href="https://materialdesignicons.com/" target="_blank" rel="noopener noreferrer">Material Design Icons<img data-svg-load="colorable, wrap=span" class="icon" src="images/open-tab.svg" /></a></li>
+          </ul>
+        </div>
+      </section>
+    </footer>
+  </body>
+</html>
